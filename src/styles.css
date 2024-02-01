@@ -15,7 +15,12 @@ body {
   padding: 0;
   color: #060000; /* Cambiar el color del texto a blanco */
 }
+
 h1 {
+  color: #fff;
+}
+
+h5  {
   color: #fff;
 }
 
