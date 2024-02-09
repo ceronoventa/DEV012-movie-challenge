@@ -1,53 +1,67 @@
-//contenedor root
+document.addEventListener("DOMContentLoaded", function() {
+// Contenedor root
 const rootElement = document.getElementById("root");
 
-
-// Input API Key
-const inputApi = document.createElement("input");
-inputApi.type = "text";
-inputApi.placeholder = "Introduce tu API Key";
-rootElement.appendChild(inputApi);
-
-//Boton Apikey
-const api = document.createElement("button");
-api.textContent = "Ingresar";
-api.addEventListener("click", () => {
-  const userApi = inputApi.value;
-if (userApi === "") {
-  alert ("Debes ingresar tu ApiKey");
-} else {
-  localStorage.setItem("KEY", userApi);
-  alert ("¡Cool! Ahora puedes explorar las pelis");
-}
-});
-rootElement.appendChild(api);
-
-//textarea titulo
+// Textarea título
 const cajaTexto = document.createElement("textarea");
-cajaTexto.placeholder = "Titulo";
+cajaTexto.placeholder = "Titulo de tu película...";
 rootElement.appendChild(cajaTexto);
 
-//textarea Año
-const cajaYear = document.createElement("textarea");
-cajaYear.placeholder = "Año";
-rootElement.appendChild(cajaYear);
 
-// Boton buscar
+// Botón buscar
 const searchButton = document.createElement("button");
 searchButton.textContent = "Buscar";
 searchButton.addEventListener("click", () => {
-  console.log("buscar las pelis");
+  // Obtener valores de los textareas
+  const titulo = cajaTexto.value;
+
+
+  // Realizar la solicitud a la API de OMDB 
+//búsqueda utilizando la api para que el servidor sepa q tenemos acceso
+const options = {
+  method: 'GET',
+
+};
+//se hace la peticion
+fetch(`http://www.omdbapi.com/?s=${titulo}&apikey=71b400b3`, options)
+//se devuelve la promesa
+.then(response => response.json())
+.then(response => {
+  mostrarResultados(response); // mostrar en interfaz
+})
 });
-// Obtener el elemento con el id "root" y agrega el botón
+
+// Agregar el botón de búsqueda al contenedor root
 rootElement.appendChild(searchButton);
 
-//Boton Limpiar
+function mostrarResultados(resultados) {
+  rootElement.innerHTML = "";
+// Verificar si hay resultados
+if (resultados.Search && resultados.Search.length > 0) {
+  // Iterar sobre los resultados y crear elementos para mostrarlos
+  resultados.Search.forEach(pelicula => {
+    // Crear un elemento de título para la película
+    const tituloPelicula = document.createElement('h2');
+    tituloPelicula.textContent = pelicula.Title;
+    rootElement.appendChild(tituloPelicula);
+  });
+} else {
+ 
+  const mensaje = document.createElement('p');  
+  mensaje.textContent = 'No se encontraron resultados';
+  rootElement.appendChild(mensaje);
+}
+}
+
+// Botón Limpiar
 const resetButton = document.createElement("button");
 resetButton.textContent = "Borrar";
 resetButton.addEventListener("click", () => {
-  console.log("Borrar");
+  limpiarTextArea();
 });
 rootElement.appendChild(resetButton);
 
-
-  
+function limpiarTextArea() {
+  cajaTexto.value = "";
+}
+});
