@@ -1,10 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Contenedor root
   const rootElement = document.getElementById("root");
+
+  // Contenedor para textarea y botones
+  const inputContainer = document.createElement("div");
+  inputContainer.classList.add("input-container"); // Agregar clase para estilos
+  
   // Textarea título
   const cajaTexto = document.createElement("textarea");
   cajaTexto.placeholder = "Titulo de tu película...";
-  rootElement.appendChild(cajaTexto);
+  inputContainer.appendChild(cajaTexto);
+
   // Botón buscar
   const searchButton = document.createElement("button");
   searchButton.textContent = "Buscar";
@@ -12,47 +18,55 @@ document.addEventListener("DOMContentLoaded", function() {
     // Obtener valores de los textareas
     const titulo = cajaTexto.value;
     // Realizar la solicitud a la API de OMDB
-  //búsqueda utilizando la api para que el servidor sepa q tenemos acceso
-  const options = {
-    method: 'GET',
-  };
-  //http://img.omdbapi.com/?apikey=[yourkey]&
-  //se hace la peticion
-  fetch(`http://www.omdbapi.com/?s=${titulo}&apikey=71b400b3`, options)
-  //se devuelve la promesa
-  .then(response => response.json())
-  .then(response => {
-    mostrarResultados(response); // mostrar en interfaz
-  })
+    //búsqueda utilizando la api para que el servidor sepa q tenemos acceso
+    const options = {
+      method: "GET",
+    };
+
+    fetch(`http://www.omdbapi.com/?s=${titulo}&apikey=71b400b3`, options) //se hace la peticion
+      .then((response) => response.json()) //se devuelve la promesa
+      .then((response) => {
+        mostrarResultados(response); // mostrar en interfaz
+      });
   });
-  // Agregar el botón de búsqueda al contenedor root
-  rootElement.appendChild(searchButton);
+  inputContainer.appendChild(searchButton); // Agregar el botón de búsqueda al contenedor de los input
+  rootElement.appendChild(inputContainer); // Agregar el contenedor de textarea y botones al contenedor rootElement
+  
   function mostrarResultados(resultados) {
     rootElement.innerHTML = "";
-  // Verificar si hay resultados
-  if (resultados.Search && resultados.Search.length > 0) {
-    // Iterar sobre los resultados y crear elementos para mostrarlos
-    resultados.Search.forEach(pelicula => {
-      // Crear un elemento de título para la película
-      const tituloPelicula = document.createElement('h2');
-      tituloPelicula.textContent = pelicula.Title;
-      rootElement.appendChild(tituloPelicula);
-    //elemento para año
-      const yearPelicula = document.createElement('p');
-      yearPelicula.textContent = pelicula.Year;
-      rootElement.appendChild(yearPelicula);
 
-    //elemento para poster
-    const posterPelicula = document.createElement('img');
-      posterPelicula.src = pelicula.Poster;
-      rootElement.appendChild(posterPelicula);
-    //
-    });
-  } else {
-    const mensaje = document.createElement('p');
-    mensaje.textContent = 'No se encontraron resultados';
-    rootElement.appendChild(mensaje);
-  }
+    if (resultados.Search && resultados.Search.length > 0) {
+      // Verificar si hay resultados
+
+      resultados.Search.forEach((pelicula) => {
+        // Iterar sobre los resultados y crear elementos para mostrarlos
+
+        //crear div que encapsula
+        const contengaTodo = document.createElement("div");
+
+        // Crear un elemento de título para la película
+        const tituloPelicula = document.createElement("h2");
+        tituloPelicula.textContent = pelicula.Title;
+        contengaTodo.appendChild(tituloPelicula);
+        //elemento para año
+        const yearPelicula = document.createElement("p");
+        yearPelicula.textContent = pelicula.Year;
+        contengaTodo.appendChild(yearPelicula);
+
+        //elemento para poster
+        const posterPelicula = document.createElement("img");
+        posterPelicula.src = pelicula.Poster;
+        contengaTodo.appendChild(posterPelicula);
+
+        // Agregar el contenedor principal al rootElement
+        rootElement.appendChild(contengaTodo);
+        //
+      });
+    } else {
+      const mensaje = document.createElement("p");
+      mensaje.textContent = "No se encontraron resultados";
+      rootElement.appendChild(mensaje);
+    }
   }
   // Botón Limpiar
   const resetButton = document.createElement("button");
@@ -60,16 +74,9 @@ document.addEventListener("DOMContentLoaded", function() {
   resetButton.addEventListener("click", () => {
     limpiarTextArea();
   });
-  rootElement.appendChild(resetButton);
+
+  inputContainer.appendChild(resetButton);
   function limpiarTextArea() {
     cajaTexto.value = "";
   }
-  });
-  
-  
-  
-  
-  
-  
-  
-  
+});

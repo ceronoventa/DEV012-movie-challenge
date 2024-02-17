@@ -1,62 +1,80 @@
 #root {
-  display: grid;
-  
-  grid-gap: 10px; /* Espacio entre las celdas */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-
-#root img {
-  width: 20%;
-  height: auto;
-  border-radius: 20px;
-}
-
-  html {
-  box-sizing: border-box;
-  font-family: sans-serif;
-  font-size: 16px;
-}
-*,
-*:after,
-*:before {
-  box-sizing: inherit;
-}
 body {
   background-color: black;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: hidden; /*oculta contenido que se extiende más allá del ancho del contenedor */
   padding: 0;
-  color: #060000; /* Cambiar el color del texto a blanco */
 }
+
+div {
+  background-color: #000000; /* Color de fondo del contenedor */
+  padding: 20px; /* Espaciado interno del contenedor */
+  border-radius: 10px; /* Bordes redondeados del contenedor */
+  margin-bottom: 20px; /* Espaciado inferior entre cada contenedor */
+}
+
+
+div img {
+  width: 250px; /* Establece el ancho de la imagen en 250 píxeles. */
+  height: 350px; /* Establece la altura de la imagen en 350 píxeles. */
+  flex: 1; /* Asigna un factor de flexibilidad de 1 a la imagen. */
+  flex-grow: 1px; /* Permite que la imagen crezca proporcionalmente con otros elementos flexibles. */
+  flex-basis: 200px; /* Establece el tamaño base de la imagen en 200 píxeles. */
+  overflow: hidden; /* Oculta cualquier contenido que exceda las dimensiones especificadas. */
+  border-radius: 10px;
+}
+
+
+
 
 h1 {
   color: #fff;
+  text-align: center;
+  font-size: 40px;
 }
+
 
 h2 {
   color: #fff;
-  font-size: small;
+  font-size: 16px;
+  margin-top: 10px; /* Espacio superior entre la imagen y el texto */
+  overflow: hidden; /* Ocultar cualquier texto que desborde */
 }
+
 
 h5  {
   color: #fff;
+  text-align: center;
 }
 
 p {
   color: #fff;
 }
 
-.container {
+
+
+.input-container {
+  text-align: center; /* Centrar el contenido horizontalmente */
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: auto;
 }
 
-textarea {
-  width: 20%;
+.input-container textarea {
+  width: 80%; /* Ancho del textarea */
   padding: 10px;
-  margin: 100px 10px 10px 0;
+  margin: 100px auto; /* Margen superior e inferior de 100px y margen izquierdo y derecho automático */
+  text-align: justify;
+  display: block; /* Convertir el textarea en un bloque */
 }
-button {
+
+.input-container button {
   background-color: #007bff;
   color: #fff;
   padding: 8px 10px 8px 10px;
@@ -65,7 +83,7 @@ button {
   margin-right: 5px;
   border: none;
   cursor: pointer;
-}
+} 
 footer {
   background-color: #333;
   color: #fff;
@@ -74,4 +92,16 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  div {
+    width: 45%; /* Ancho de cada contenedor en pantallas más pequeñas */
+  }
+}
+
+@media screen and (max-width: 576px) {
+div  {
+    width: 100%; /* Ancho completo de cada contenedor en pantallas aún más pequeñas */
+  }
 }
