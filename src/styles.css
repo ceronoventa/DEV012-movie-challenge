@@ -44,17 +44,17 @@ h2 {
   font-size: 16px;
   margin-top: 10px; /* Espacio superior entre la imagen y el texto */
   overflow: hidden; /* Ocultar cualquier texto que desborde */
-}
-
-
-h5  {
-  color: #fff;
   text-align: center;
 }
 
+
 p {
   color: #fff;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+
 
 
 
@@ -67,7 +67,7 @@ p {
 }
 
 .input-container textarea {
-  width: 80%; /* Ancho del textarea */
+  width: 75%; /* Ancho del textarea */
   padding: 10px;
   margin: 100px auto; /* Margen superior e inferior de 100px y margen izquierdo y derecho automático */
   text-align: justify;
@@ -84,6 +84,8 @@ p {
   border: none;
   cursor: pointer;
 } 
+
+
 footer {
   background-color: #333;
   color: #fff;
