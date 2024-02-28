@@ -28,8 +28,8 @@ inputContainer.appendChild(bienvenida);
       method: "GET",
     };
 
-    fetch(`http://www.omdbapi.com/?s=${titulo}&apikey=71b400b3`, options) //se hace la peticion
-      .then((response) => response.json()) //se devuelve la promesa
+    fetch(`https://www.omdbapi.com/?s=${titulo}&apikey=71b400b3`, options) //se hace la peticion
+      .then((response) => response.json()) //se devuelve la promesa- manejar la respuesta de la solicitud HTTP
       .then((response) => {
         mostrarResultados(response); // mostrar en interfaz
       });
@@ -71,12 +71,12 @@ inputContainer.appendChild(bienvenida);
         contengaTodo.appendChild(tituloPelicula);
         //elemento para año
         const yearPelicula = document.createElement("p");
-        yearPelicula.textContent = pelicula.Year;
+        yearPelicula.textContent = pelicula.Year; //objeto y propiedad que almacena info
         contengaTodo.appendChild(yearPelicula);
 
         //elemento para poster
         const posterPelicula = document.createElement("img");
-        posterPelicula.src = pelicula.Poster;
+        posterPelicula.src = pelicula.Poster; //objeto que accede a
         contengaTodo.appendChild(posterPelicula);
 
                   // Botón Home
